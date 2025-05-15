@@ -21,7 +21,7 @@ and relies on class names that will surely change. However, they don't change th
 actual logic for Tumblr Fortress 2 is pretty simple, and I want it back NOW, so here it is.
 
 If you install this and it's not working I probably got sick of it. If I didn't get sick of it
-I'll probably notice and patch it soon.
+I'll probably notice and patch it soon. I'll make it use the CSS map later.
 
 --- LICENSE ---
 Tumblr Fortress 3 and New XKit (hereafter "this program") are free software: you can redistribute
