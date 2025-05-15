@@ -1,3 +1,10 @@
+/* ==UserStyle==
+@name           Tweaks for Old Dashboard
+@namespace      https://nineplus.sh
+@version        1.0.0
+@author         Hakase
+==/UserStyle== /*
+
 @-moz-document domain("tumblr.com") {
     html, div, :root {
         --font-family: "Nimbus Sans" !important;
