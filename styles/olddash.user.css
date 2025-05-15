@@ -1,0 +1,10 @@
+@-moz-document domain("tumblr.com") {
+    html, div, :root {
+        --font-family: "Nimbus Sans" !important;
+        --font-family-modern: "Nimbus Sans" !important;
+    }
+
+    .Dk06o.X4W3M, [data-tweaks-caught-up-line-border], .R7jci.Kkrh1 {
+        display: none !important;
+    }
+}
