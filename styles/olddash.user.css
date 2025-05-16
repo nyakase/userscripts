@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Tweaks for Old Dashboard
 @namespace      https://nineplus.sh
-@version        1.0.1
+@version        1.0.2
 @author         Hakase
 ==/UserStyle== */
 
@@ -11,7 +11,7 @@
         --font-family-modern: "Nimbus Sans", "Nimbus Sans L", "NimbusSanL" !important;
     }
 
-    .Dk06o.X4W3M, [data-tweaks-caught-up-line-border], .R7jci.Kkrh1 {
+    .Dk06o.X4W3M, [data-tweaks-caught-up-line-border], .R7jci.Kkrh1, .x66yu .CtNGM:before {
         display: none !important;
     }
 }
