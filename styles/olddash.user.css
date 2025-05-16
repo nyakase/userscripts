@@ -1,14 +1,14 @@
 /* ==UserStyle==
 @name           Tweaks for Old Dashboard
 @namespace      https://nineplus.sh
-@version        1.0.0
+@version        1.0.1
 @author         Hakase
 ==/UserStyle== */
 
 @-moz-document domain("tumblr.com") {
     html, div, :root {
-        --font-family: "Nimbus Sans" !important;
-        --font-family-modern: "Nimbus Sans" !important;
+        --font-family: "Nimbus Sans", "Nimbus Sans L", "NimbusSanL" !important;
+        --font-family-modern: "Nimbus Sans", "Nimbus Sans L", "NimbusSanL" !important;
     }
 
     .Dk06o.X4W3M, [data-tweaks-caught-up-line-border], .R7jci.Kkrh1 {
