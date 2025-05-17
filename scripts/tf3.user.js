@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3
 // @namespace    https://nineplus.sh
-// @version      2025-05-15
+// @version      2025-05-18
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://tumblr.com/**
@@ -37,13 +37,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 (function() {
     'use strict';
 
-    // styling for old tumblr dashboard userstyle. nothing happens on modern tumblr but might brick other userstyles
+    // make header more comfortable with having a larger image inside it
     GM.addStyle(`
 .tf3ized .x66yu .Fuxs_ {
 display: flex;
   align-items: center;
   gap: 0.5em;
-  margin-left: 0.2em;
   }
 `)
 
