@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.1
 // @namespace    https://nineplus.sh
-// @version      3.1.2
+// @version      3.1.3
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -53,6 +53,9 @@ display: flex;
   }
   body:is(.palette--darkMode, .palette--lowContrastClassic, .palette--cybernetic, .palette--vampire, .palette--pumpkin, .palette--gothRave) .tf3icon {
   filter: invert(1);
+  }
+  [data-testid="scroll-container"][style*="--blog-title-color:"] .tf3icon {
+  filter: invert(0);
   }
   `)
 
