@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.1
 // @namespace    https://nineplus.sh
-// @version      3.1.1
+// @version      3.1.2
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -35,11 +35,12 @@ https://github.com/tumblr/docs/blob/master/web-platform.md for more information.
 .tf3ized ${classToStyle("subheader")} ${classToStyle("info")} {
 display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 5px;
   }
 `)
 
-    // prevent icons from misaligning stuff + crits
+    // prevent icons from misaligning stuff + bonus styling depending on post type
+    // invert icons if user is using a dark palette, which does have the unfortunate side effect of turning flames blue and such
     GM.addStyle(`
   .tf3icon {
   height: 1.5em;
@@ -49,6 +50,9 @@ display: flex;
   }
   .tf3icon.flipped {
   transform: scaleX(-1)
+  }
+  body:is(.palette--darkMode, .palette--lowContrastClassic, .palette--cybernetic, .palette--vampire, .palette--pumpkin, .palette--gothRave) .tf3icon {
+  filter: invert(1);
   }
   `)
 
@@ -93,7 +97,7 @@ display: flex;
         tf3Icon.alt = "reblogged";
         tf3Icon.onload = () => rebloggedNode.firstChild.remove();
         tf3Icon.className = "tf3icon";
-        if(headerNode.querySelector(".xkit-mutual-icon")) tf3Icon.classList.add("crit")
+        if(headerNode.querySelector(".xkit-mutual-icon")) tf3Icon.classList.add("crit");
 
         if(!reblogSourceNode) {
             tf3Icon.classList.add("flipped");
