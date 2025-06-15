@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.2
 // @namespace    https://nineplus.sh
-// @version      3.2.2
+// @version      3.2.3
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -156,7 +156,7 @@ display: flex;
 
 
 /**
-New XKit, and as a result, Team Fortress 3, are free software: you can redistribute it and/or modify
+New XKit, and as a result, Tumblr Fortress 3, are free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the Free Software Foundation,
 either version 3 of the License, or (at your option) any later version. Tumblr Fortress 3 is
 distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
