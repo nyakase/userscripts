@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.2
 // @namespace    https://nineplus.sh
-// @version      3.2.1
+// @version      3.2.2
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -126,7 +126,7 @@ display: flex;
         const tf3Icon = makeKillicon({
             seed: postNode.getAttribute("data-id"),
             mutual: headerNode.querySelector(".xkit-mutual-icon"),
-            flipped: !!reblogSourceNode
+            flipped: !reblogSourceNode
         });
         tf3Icon.onload = () => rebloggedNode.firstChild.remove();
 
