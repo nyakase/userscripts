@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Tumblr Fortress 3.1
+// @name         Tumblr Fortress 3.2
 // @namespace    https://nineplus.sh
-// @version      3.1.3
+// @version      3.2.0
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -30,10 +30,17 @@ https://github.com/tumblr/docs/blob/master/web-platform.md for more information.
     const nodeHasClasses = (node, classNames) => classNames.every((className) => nodeHasClass(node, className));
     const classToStyle = (className) => `:is(${CSSmap[className].map((mapClassName) => `.${mapClassName}`).join(", ")})`;
 
+    const IDfromURL = (url) => url.match(/\/[a-z-0-9]+\/(\d+)/)[1];
+
     // make header more comfortable with having a larger image inside it
     GM.addStyle(`
 .tf3ized ${classToStyle("subheader")} ${classToStyle("info")} {
 display: flex;
+  align-items: center;
+  gap: 5px;
+  }
+
+  .tf3ized ${classToStyle("reblogParent")} {
   align-items: center;
   gap: 5px;
   }
@@ -44,6 +51,9 @@ display: flex;
     GM.addStyle(`
   .tf3icon {
   height: 1.5em;
+  }
+  ${classToStyle("reblogParent")} .tf3icon {
+  height: 1em;
   }
   .tf3icon.crit {
   background: transparent url("https://78.media.tumblr.com/becd0641fa16830002d33282e29cdd3a/tumblr_inline_p9ajigzKbk1r0r06s_75sq.png") 0 0/100% 100% no-repeat;
@@ -66,20 +76,28 @@ display: flex;
     const observer = new MutationObserver((mutationsList, observer) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
+                if(mutation.target.parentNode.getAttribute("data-testid") == "notes-root") mutation.target.parentNode.querySelectorAll(
+                        "[data-testid=reblog-note-block]:not(.tf3ized)").forEach(note => tf3izeNote(note));
+
                 mutation.addedNodes.forEach(node => {
                     if(!node || !node.classList) return;
-                    console.log(node, (nodeHasClass(node, "listTimelineObject") && node.getAttribute("data-id")), (nodeHasClasses(node, ["cell", "isVisible"]) && node.querySelector(`[data-id]${classToStyle("listTimelineObject")}`)));
 
+                    // tf3ize posts on the dash
                     if(nodeHasClass(node, "listTimelineObject") && node.getAttribute("data-id")) tf3izePost(node);
-
+                    // tf3ize posts loaded onto a blog
                     if(nodeHasClasses(node, ["cell", "isVisible"]) && node.querySelector(`[data-id]${classToStyle("listTimelineObject")}`))
                         tf3izePost(node.querySelector(`[data-id]${classToStyle("listTimelineObject")}`));
-
-                    // do crits if xkit rewritten mutual checker is on
+                    // add crits to posts
                     if(node.classList.contains("xkit-mutual-icon")) {
                         node.parentNode.parentNode.parentNode.querySelector(".tf3icon")?.classList.add("crit");
                         node.style.display = "none";
                     }
+
+                    // tf3ize reblogs in the notes list
+                    /* on the first load, mutations for individual notes are not emitted
+                       for some reason, only some weird start/end empty divs :( */
+                    if(node.parentNode.getAttribute("data-testid") == "notes-root") node.parentNode.querySelectorAll(
+                        "[data-testid=reblog-note-block]:not(.tf3ized)").forEach(note => tf3izeNote(note));
                 });
             }
         }
@@ -88,6 +106,19 @@ display: flex;
     const config = { childList: true, subtree: true };
     observer.observe(document.body, config);
 
+    function makeKillicon({seed, flipped = false, mutual = false }) {
+        const tf3Icon = document.createElement("img");
+        tf3Icon.className = "tf3icon";
+
+        tf3Icon.src = icons[seed % icons.length];
+        tf3Icon.alt = "reblogged";
+
+        if(mutual) tf3Icon.classList.add("crit");
+        if(flipped) tf3Icon.classList.add("flipped");
+
+        return tf3Icon;
+    }
+
     function tf3izePost(postNode) {
         if(postNode.classList.contains("tf3ized")) return;
 
@@ -95,21 +126,34 @@ display: flex;
         const rebloggedNode = headerNode.querySelector(classToStyle("info"));
         const reblogSourceNode = rebloggedNode.querySelector(classToStyle("targetWrapperInline"));
 
-        const tf3Icon = document.createElement("img");
-        tf3Icon.src = icons[postNode.getAttribute("data-id") % icons.length];
-        tf3Icon.alt = "reblogged";
+        const tf3Icon = makeKillicon({
+            seed: postNode.getAttribute("data-id"),
+            mutual: headerNode.querySelector(".xkit-mutual-icon"),
+            flipped: !!reblogSourceNode
+        });
         tf3Icon.onload = () => rebloggedNode.firstChild.remove();
-        tf3Icon.className = "tf3icon";
-        if(headerNode.querySelector(".xkit-mutual-icon")) tf3Icon.classList.add("crit");
 
         if(!reblogSourceNode) {
-            tf3Icon.classList.add("flipped");
             rebloggedNode.appendChild(tf3Icon);
         } else {
             rebloggedNode.insertBefore(tf3Icon, reblogSourceNode);
         }
 
         postNode.classList.add("tf3ized");
+    }
+
+    function tf3izeNote(noteNode) {
+        if(noteNode.classList.contains("tf3ized")) return;
+
+        const rebloggedNode = noteNode.querySelector(classToStyle("reblogParent"));
+        const rebloggerNode = noteNode.querySelector(`${classToStyle("targetWrapperBlock")} ${classToStyle("blogLink")}`);
+        const reblogSourceNode = rebloggedNode.querySelector(classToStyle("blogLink"));
+
+        const tf3Icon = makeKillicon({seed: IDfromURL(rebloggerNode.href)});
+        tf3Icon.onload = () => rebloggedNode.firstChild.remove();
+        rebloggedNode.insertBefore(tf3Icon, reblogSourceNode);
+
+        noteNode.classList.add("tf3ized");
     }
 })();
 
