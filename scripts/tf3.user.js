@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.2
 // @namespace    https://nineplus.sh
-// @version      3.2.0
+// @version      3.2.1
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -76,6 +76,9 @@ display: flex;
     const observer = new MutationObserver((mutationsList, observer) => {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
+                // tf3ize reblogs in the notes list when it's updated
+                /* on the first load, mutations for individual notes are not emitted for some reason,
+                   only a couple weird empty divs at the start and end of the list :( */
                 if(mutation.target.parentNode.getAttribute("data-testid") == "notes-root") mutation.target.parentNode.querySelectorAll(
                         "[data-testid=reblog-note-block]:not(.tf3ized)").forEach(note => tf3izeNote(note));
 
@@ -92,12 +95,6 @@ display: flex;
                         node.parentNode.parentNode.parentNode.querySelector(".tf3icon")?.classList.add("crit");
                         node.style.display = "none";
                     }
-
-                    // tf3ize reblogs in the notes list
-                    /* on the first load, mutations for individual notes are not emitted
-                       for some reason, only some weird start/end empty divs :( */
-                    if(node.parentNode.getAttribute("data-testid") == "notes-root") node.parentNode.querySelectorAll(
-                        "[data-testid=reblog-note-block]:not(.tf3ized)").forEach(note => tf3izeNote(note));
                 });
             }
         }
