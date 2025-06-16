@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3.2
 // @namespace    https://nineplus.sh
-// @version      3.2.3
+// @version      2025-06-16
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
