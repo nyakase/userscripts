@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Tumblr Fortress 3.2
+// @name         Tumblr Fortress 3
 // @namespace    https://nineplus.sh
 // @version      2025-06-16
 // @description  try to crit the world!
