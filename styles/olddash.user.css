@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Tweaks for Old Dashboard
 @namespace      https://nineplus.sh
-@version        1.0.4
+@version        1.0.5
 @author         Hakase
 ==/UserStyle== */
 
@@ -17,5 +17,18 @@
 
     .mYcfU.has-assigned-label {
         outline: none !important;
+    }
+
+    /* Try to apply the Old Dashboard timestamp alignment to community posts as well */
+    /* The original CSS snippets are from https://userstyles.world/style/11286/default-slug */
+    .l4Qpd[aria-label*=" posted in "] {
+        margin-top: -6px;
+        padding-bottom: 14px;
+    }
+    .l4Qpd[aria-label*=" posted in "] .QOpFt {
+        position: absolute;
+        top: 46px;
+        left: 19px;
+        margin-top: -6px;
     }
 }
