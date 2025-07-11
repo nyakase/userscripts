@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tumblr Fortress 3
 // @namespace    https://nineplus.sh
-// @version      2025-06-16
+// @version      2025-07-12
 // @description  try to crit the world!
 // @author       Hakase
 // @match        https://www.tumblr.com/**
@@ -121,7 +121,7 @@ display: flex;
 
         const headerNode = postNode.querySelector(classToStyle("userBlock"));
         const rebloggedNode = headerNode.querySelector(classToStyle("info"));
-        const reblogSourceNode = rebloggedNode.querySelector(classToStyle("targetWrapperInline"));
+        const reblogSourceNode = rebloggedNode.querySelector(classToStyle("targetWrapperInline")) || rebloggedNode.querySelector("a");
 
         const tf3Icon = makeKillicon({
             seed: postNode.getAttribute("data-id"),
