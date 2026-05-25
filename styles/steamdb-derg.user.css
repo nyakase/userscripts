@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           SteamDB De-RG
 @namespace      https://hakase.life
-@version        1.0.2
+@version        1.0.3
 @author         Nia
 ==/UserStyle== */
 
@@ -9,7 +9,8 @@
     [data-appid="271590"], /* GTAV Legacy */
     [data-appid="1174180"], /* Red Dead Redemption 2 */
     [data-appid="2676230"], /* FiveM */
-    [data-appid="3240220"] /* GTAV Enhanced */
+    [data-appid="3240220"], /* GTAV Enhanced */
+    [data-appid="4333400"] /* RedM */
     {
         display: none !important;
     }
